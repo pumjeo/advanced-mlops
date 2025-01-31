@@ -1,0 +1,15 @@
+[project]
+name = "lgcns-advanced-mlops"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11.6"
+dependencies = [
+    "apache-airflow-providers-mysql==5.7.4",
+    "apache-airflow==2.10.3",
+    "mysqlclient==2.2.7",
+    "numpy==1.26.4",
+    "pandas==2.0.3",
+    "pymysql==1.1.0",
+    "scikit-learn==1.2.2",
+]
