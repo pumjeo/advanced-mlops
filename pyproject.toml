@@ -13,3 +13,10 @@ dependencies = [
     "pymysql==1.1.0",
     "scikit-learn==1.2.2",
 ]
+
+[dependency-groups]
+jupyter = [
+    "ipykernel>=6.29.5",
+    "ipython>=8.31.0",
+    "jupyter>=1.1.1",
+]
