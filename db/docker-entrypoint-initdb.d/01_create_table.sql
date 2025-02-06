@@ -91,8 +91,8 @@ CREATE TABLE `mlops`.`credit_score_features_target` (
   `payment_behaviour` varchar(50) DEFAULT NULL,
   `monthly_balance` float DEFAULT NULL,
   `credit_score` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`,`customer_id`, `date`)
+  PRIMARY KEY (`base_dt`, `id`, `customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-PARTITION BY KEY(`date`)
-PARTITIONS 8
+PARTITION BY KEY(`base_dt`)
+PARTITIONS 7
 ;
