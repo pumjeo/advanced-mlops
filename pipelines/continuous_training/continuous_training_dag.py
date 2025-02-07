@@ -4,6 +4,7 @@ from datetime import datetime
 import pendulum
 from airflow import DAG
 from airflow.models import Variable
+from airflow.operators.bash import BashOperator
 from airflow.operators.empty import EmptyOperator
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 
@@ -45,7 +46,18 @@ with DAG(
         split_statements=True,
     )
 
-    data_preprocessing = EmptyOperator(task_id="데이터_전처리")
+    data_preprocessing = BashOperator(
+        task_id="데이터_전처리",
+        bash_command=f"cd {airflow_dags_path}/pipelines/continuous_training/docker &&"
+        "docker compose up --build && docker compose down",
+        env={
+            "PYTHON_FILE": "/home/mlops/data_preprocessing/preprocessor.py",
+            "MODEL_NAME": "credit_score_classification",
+            "BASE_DT": "{{ ds }}",
+        },
+        append_env=True,
+        retries=1,
+    )
 
     training = EmptyOperator(task_id="모델_학습_및_평가")
 
