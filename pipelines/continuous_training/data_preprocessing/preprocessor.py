@@ -260,7 +260,7 @@ class Preprocessor:
             is_train (Optional[bool], optional): 학습 데이터 여부
                 Defaults to True.
         """
-        file_name = f"{self._model_name}_{'train' if is_train else 'test'}"
+        file_name = f"{self._model_name}_{'train' if is_train else 'test'}.csv"
         data = feature.copy()
         data[TARGET_NAME] = target
 
