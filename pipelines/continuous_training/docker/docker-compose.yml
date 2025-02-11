@@ -8,6 +8,7 @@ services:
     volumes:
       - ${HOME}/airflow/artifacts:/home/mlops/artifacts
       - ${HOME}/bentoml:/home/mlops/bentoml
+      - ${HOME}/mlruns:/home/mlops/mlruns
     environment:
       PYTHONPATH: /home/mlops
       ARTIFACTS_PATH: /home/mlops/artifacts
