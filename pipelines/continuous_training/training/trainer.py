@@ -12,6 +12,7 @@ from catboost import CatBoostClassifier, Pool
 from dotenv import load_dotenv
 from mlflow.entities import Run
 from mlflow.models import infer_signature
+from tqdm.auto import tqdm
 
 from utils.dates import DateValues
 
@@ -80,18 +81,17 @@ class Trainer:
 
         mlflow.set_experiment(self._experiment_name)
 
-        for i, params in enumerate(param_set):
+        for i, params in enumerate(tqdm(param_set)):
             run_name = f"Run {i}"
             artifacts_path = os.path.join(
                 self._model_path, run_name.lower().replace(" ", "_")
             )
-            print(f"{run_name} with {params}")
 
             with mlflow.start_run(run_name=run_name):
                 cls = CatBoostClassifier(
                     **params,
                     loss_function="MultiClassOneVsAll",
-                    learning_rate=0.05,
+                    learning_rate=0.3,
                     iterations=2000,
                     thread_count=-1,
                     random_seed=42,
