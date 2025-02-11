@@ -6,12 +6,12 @@ services:
     image: credit_score_classification:ct-pipeline-latest
     container_name: credit_score_classification_ct_pipeline
     volumes:
-      - ${HOME}/airflow/artifacts:/home/mlops/artifacts
-      - ${HOME}/bentoml:/home/mlops/bentoml
-      - ${HOME}/mlruns:/home/mlops/mlruns
+      - ${HOME}/airflow/artifacts:/home/codespace/artifacts
+      - ${HOME}/bentoml:/home/codespace/bentoml
+      - ${HOME}/mlruns:/home/codespace/mlruns
     environment:
-      PYTHONPATH: /home/mlops
-      ARTIFACTS_PATH: /home/mlops/artifacts
+      PYTHONPATH: /home/codespace
+      ARTIFACTS_PATH: /home/codespace/artifacts
       FEATURE_STORE_URL: mysql+pymysql://root:root@mariadb:3306/mlops
     command: >
       python ${PYTHON_FILE} --model_name ${MODEL_NAME} --base_dt ${BASE_DT}

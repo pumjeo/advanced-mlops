@@ -48,7 +48,7 @@ with DAG(
         bash_command=f"cd {airflow_dags_path}/pipelines/continuous_training/docker &&"
         "docker compose up --build && docker compose down",
         env={
-            "PYTHON_FILE": "/home/mlops/data_preprocessing/preprocessor.py",
+            "PYTHON_FILE": "/home/codespace/data_preprocessing/preprocessor.py",
             "MODEL_NAME": "credit_score_classification",
             "BASE_DT": "{{ ds }}",
         },
@@ -61,7 +61,7 @@ with DAG(
         bash_command=f"cd {airflow_dags_path}/pipelines/continuous_training/docker &&"
         "docker compose up --build && docker compose down",
         env={
-            "PYTHON_FILE": "/home/mlops/training/trainer.py",
+            "PYTHON_FILE": "/home/codespace/training/trainer.py",
             "MODEL_NAME": "credit_score_classification",
             "BASE_DT": "{{ ds }}",
         },
