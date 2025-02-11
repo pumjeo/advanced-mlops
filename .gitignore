@@ -175,3 +175,9 @@ notebooks/
 
 # For macOS
 .DS_Store
+
+# MLflow
+mlruns/
+
+# Catboost
+catboost_info/

@@ -5,7 +5,6 @@ import pendulum
 from airflow import DAG
 from airflow.models import Variable
 from airflow.operators.bash import BashOperator
-from airflow.operators.empty import EmptyOperator
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 
 from utils.callbacks import failure_callback, success_callback
@@ -23,7 +22,7 @@ sql_file_path = os.path.join(
 )
 
 with DAG(
-    dag_id="credit_score_classification_ct",
+    dag_id="credit_score_classification",
     default_args={
         "owner": "user",
         "depends_on_past": False,
@@ -37,17 +36,15 @@ with DAG(
     catchup=False,
     tags=["lgcns", "mlops"],
 ) as dag:
-    # data_extract = EmptyOperator(task_id="데이터_추출")
-
     data_extract = SQLExecuteQueryOperator(
-        task_id="데이터_추출",
+        task_id="data_extraction",
         conn_id=conn_id,
         sql=read_sql_file(sql_file_path),
         split_statements=True,
     )
 
     data_preprocessing = BashOperator(
-        task_id="데이터_전처리",
+        task_id="data_preprocessing",
         bash_command=f"cd {airflow_dags_path}/pipelines/continuous_training/docker &&"
         "docker compose up --build && docker compose down",
         env={
@@ -59,6 +56,17 @@ with DAG(
         retries=1,
     )
 
-    training = EmptyOperator(task_id="모델_학습_및_평가")
+    training = BashOperator(
+        task_id="model_training",
+        bash_command=f"cd {airflow_dags_path}/pipelines/continuous_training/docker &&"
+        "docker compose up --build && docker compose down",
+        env={
+            "PYTHON_FILE": "/home/mlops/training/trainer.py",
+            "MODEL_NAME": "credit_score_classification",
+            "BASE_DT": "{{ ds }}",
+        },
+        append_env=True,
+        retries=1,
+    )
 
     data_extract >> data_preprocessing >> training

@@ -7,6 +7,7 @@ services:
     container_name: credit_score_classification_ct_pipeline
     volumes:
       - ${HOME}/airflow/artifacts:/home/mlops/artifacts
+      - ${HOME}/bentoml:/home/mlops/bentoml
     environment:
       PYTHONPATH: /home/mlops
       ARTIFACTS_PATH: /home/mlops/artifacts
