@@ -22,7 +22,7 @@ sql_file_path = os.path.join(
 )
 
 with DAG(
-    dag_id="credit_score_classification",
+    dag_id="credit_score_classification_ct",
     default_args={
         "owner": "user",
         "depends_on_past": False,
