@@ -1,0 +1,24 @@
+services:
+  bentoml_service:
+    build:
+      context: ../..
+      dockerfile: api/docker/Dockerfile
+    image: credit_score_classification-deploy:latest
+    container_name: credit_score_classification_deploy
+    volumes:
+      - ${HOME}/airflow/artifacts:/home/codespace/artifacts
+      - ${HOME}/bentoml:/home/codespace/bentoml
+    environment:
+      PYTHONPATH: /home/codespace
+      ARTIFACTS_PATH: /home/codespace/artifacts
+      FEATURE_STORE_URL: mysql+pymysql://root:root@mariadb:3306/mlops
+    ports:
+      - "3000:3000"
+    command: >
+      bentoml serve service:CreditScoreClassifier
+    networks:
+      mlops_network:
+networks:
+  mlops_network:
+    name: mlops_network
+    external: true

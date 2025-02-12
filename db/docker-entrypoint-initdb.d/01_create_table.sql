@@ -97,3 +97,16 @@ CREATE TABLE `mlops`.`credit_score_features_target` (
 PARTITION BY KEY(`base_dt`)
 PARTITIONS 7
 ;
+
+DROP TABLE IF EXISTS `mlops`.`credit_predictions_api_log`;
+CREATE TABLE `mlops`.`credit_predictions_api_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `customer_id` varchar(10) NOT NULL,
+  `features` json NOT NULL,
+  `prediction` varchar(10) NOT NULL,
+  `confidence` float NOT NULL,
+  `elapsed_ms` int NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+;
