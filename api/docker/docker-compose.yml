@@ -15,7 +15,7 @@ services:
     ports:
       - "3000:3000"
     command: >
-      bentoml serve service:CreditScoreClassifier
+      bentoml serve services:CreditScoreClassifier
     networks:
       mlops_network:
 networks:

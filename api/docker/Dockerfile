@@ -10,7 +10,7 @@ RUN groupadd --gid 1000 codespace \
 COPY --chown=codespace:codespace ${UTIL_PATH}/ ${USER_HOME}/utils
 COPY --chown=codespace:codespace ${API_PATH}/bentofile.yaml ${USER_HOME}/
 COPY --chown=codespace:codespace ${API_PATH}/requirements.txt ${USER_HOME}/
-COPY --chown=codespace:codespace ${API_PATH}/service.py ${USER_HOME}/
+COPY --chown=codespace:codespace ${API_PATH}/services.py ${USER_HOME}/
 COPY --chown=codespace:codespace ${API_PATH}/src/ ${USER_HOME}/${API_PATH}/src
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*

@@ -1,4 +1,4 @@
-service: "service.py:CreditScoreClassifier"
+service: "services.py:CreditScoreClassifier"
 include:
   - "*.py"
 python:
