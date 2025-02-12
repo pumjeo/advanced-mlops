@@ -65,3 +65,13 @@ class CreditScoreClassifier:
         self.db.commit()
 
         return Response(customer_id=customer_id, predict=label, confidence=prob)
+
+    @bentoml.api(route="/metadata", output_spec=dict)
+    def metadata(self):
+        """현재 컨테이너에서 서빙 중인 모델의 메타데이터 반환"""
+        return {
+            "model_name": self.bento_model.tag.name,
+            "model_version": self.bento_model.tag.version,
+            "params": self.bento_model.info.metadata,
+            "creation_time": self.bento_model.info.creation_time,
+        }
