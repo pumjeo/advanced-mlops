@@ -10,7 +10,7 @@ from sklearn.preprocessing import RobustScaler
 from sqlalchemy import create_engine, text
 
 from utils.dates import DateValues
-
+print("Hi")
 # .env 파일 로드
 load_dotenv()
 
